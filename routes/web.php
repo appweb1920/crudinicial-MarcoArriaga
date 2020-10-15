@@ -20,3 +20,9 @@ Route::post('/registroRecolector','RecolectorController@store');
 Route::get('/editarRecolector/{id}','RecolectorController@edit');
 Route::post('/editarRecolector/update', 'RecolectorController@update');
 Route::get('/borrar/{id}', 'RecolectorController@destroy');
+
+Route::get('/puntos','PuntosController@index');
+Route::post('/registroPunto','PuntosController@store');
+Route::get('/editarPunto/{id}','PuntosController@edit');
+Route::post('/editarPunto/update', 'PuntosController@update');
+Route::get('/borrar/{id}', 'PuntosController@destroy');

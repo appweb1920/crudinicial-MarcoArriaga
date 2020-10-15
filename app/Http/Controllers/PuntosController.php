@@ -36,7 +36,14 @@ class PuntosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $punto = new Recolector;
+        $punto->tipo = $request->tipo;
+        $punto->direccion = $request->direccion;
+        $punto->horaApertura = $request->horaApertura;
+        $punto->horaCierre = $request->horaCierre;
+        $punto->save();
+
+        return redirect('/puntos');
     }
 
     /**
@@ -47,7 +54,7 @@ class PuntosController extends Controller
      */
     public function show(Punto $punto)
     {
-        //
+        $puntos = Punto::find($id);
     }
 
     /**
@@ -56,9 +63,12 @@ class PuntosController extends Controller
      * @param  \App\Punto  $punto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Punto $punto)
+    public function edit($id)
     {
-        //
+        //buscar el dato
+        $punto = Punto::find($id); 
+        //pasar el dato a la vista
+        return view('editapunto')->with('punto', $punto);
     }
 
     /**
@@ -68,9 +78,17 @@ class PuntosController extends Controller
      * @param  \App\Punto  $punto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Punto $punto)
+    public function update(Request $request)
     {
-        //
+        $punto = Recolector::find($request->id);
+        if(!is_null($punto)){
+            $punto->tipo = $request->tipo;
+            $punto->direccion = $request->direccion;
+            $punto->horaApertura = $request->horaApertura;
+            $punto->horaCierre = $request->horaCierre;
+            $punto->save(); 
+        }
+        return redirect('/puntos');
     }
 
     /**
@@ -79,8 +97,10 @@ class PuntosController extends Controller
      * @param  \App\Punto  $punto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Punto $punto)
+    public function destroy($id)
     {
-        //
+        $punto = Punto::find($id);
+        $punto->delete();
+        return redirect('/puntos');
     }
 }
