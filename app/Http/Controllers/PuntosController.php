@@ -15,7 +15,7 @@ class PuntosController extends Controller
     public function index()
     {
         $puntos = Punto::all();
-        return($puntos);
+        return view('puntos')->with('puntos', $puntos);
     }
 
     /**
@@ -36,7 +36,7 @@ class PuntosController extends Controller
      */
     public function store(Request $request)
     {
-        $punto = new Recolector;
+        $punto = new Punto;
         $punto->tipo = $request->tipo;
         $punto->direccion = $request->direccion;
         $punto->horaApertura = $request->horaApertura;
@@ -80,7 +80,7 @@ class PuntosController extends Controller
      */
     public function update(Request $request)
     {
-        $punto = Recolector::find($request->id);
+        $punto = Punto::find($request->id);
         if(!is_null($punto)){
             $punto->tipo = $request->tipo;
             $punto->direccion = $request->direccion;

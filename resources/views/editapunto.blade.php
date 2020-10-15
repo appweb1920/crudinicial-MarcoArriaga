@@ -21,10 +21,10 @@
                 Dias:<input type="text" class="form-control" value="{{$punto->direccion}}" name="direccion">
             </div>
             <div class="col">
-                Nombre:<input type="text" class="form-control" value="{{$punto->horaApertura}}" name="horaApertura">
+                Nombre:<input type="time" class="form-control" value="{{$punto->horaApertura}}" name="horaApertura">
             </div>
             <div class="col">
-                Dias:<input type="text" class="form-control" value="{{$punto->horaCierre}}" name="horaCierre">
+                Dias:<input type="time" class="form-control" value="{{$punto->horaCierre}}" name="horaCierre">
             </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary mb-2">Submit</button>

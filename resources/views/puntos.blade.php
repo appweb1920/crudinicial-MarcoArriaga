@@ -20,10 +20,10 @@
             <input type="text" class="form-control" placeholder="Direccion" name="direccion">
             </div>
             <div class="col">
-            <input type="text" class="form-control" placeholder="Hora apertura"  name="horaApertura">
+            <input type="time" class="form-control" placeholder="Hora apertura"  name="horaApertura">
             </div>
             <div class="col">
-            <input type="text" class="form-control" placeholder="Hora Cierre" name="horaCierre">
+            <input type="time" class="form-control" placeholder="Hora Cierre" name="horaCierre">
             </div>
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary mb-2">Submit</button>
@@ -52,8 +52,8 @@
                     <td><p>{{$p->horaApertura}}</p></td>
                     <td><p>{{$p->horaCierre}}</p></td>
                     <td><a class="btn btn-primary" href=""><i class="fas fa-book"></i></a></td>
-                    <td><a class="btn btn-primary" href="/editarRecolector/{{$r->id}}"><i class="fas fa-edit"></i></a></td>
-                    <td><a class="btn btn-primary" href="/borrar/{{$r->id}}"><i class="fas fa-trash-alt"></i></a></td>
+                    <td><a class="btn btn-primary" href="/editarPunto/{{$p->id}}"><i class="fas fa-edit"></i></a></td>
+                    <td><a class="btn btn-primary" href="/borrar/{{$p->id}}"><i class="fas fa-trash-alt"></i></a></td>
                 </tr>
             @endforeach
         @endif

@@ -17,8 +17,8 @@ class Puntos extends Migration
             $table->id();
             $table->string('tipo');
             $table->string('direccion');
-            $table->string('horaApertura');
-            $table->string('horaCierre');
+            $table->time('horaApertura');
+            $table->time('horaCierre');
             $table->timestamps();
         });
     }
