@@ -45,7 +45,7 @@
         </div>
     </form>
 
-    <table class="table table-hover" class="w-75 p-3">
+    <table class="table table-hover table-bordered w-75 text-center mx-2">
         <thead class="thead-dark">
             <tr>
                 <th>Tipo</th>

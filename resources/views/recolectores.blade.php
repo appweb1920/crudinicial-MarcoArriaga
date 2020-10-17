@@ -40,11 +40,11 @@
         </div>
     </form>
 
-    <table class="table table-hover" class="w-75 p-3">
+    <table class="table table-hover table-bordered w-75 text-center mx-2">
         <thead class="thead-dark">
             <tr>
                 <th>Nombre</th>
-                <th class="col-sm-3">Dias</th>
+                <th>Dias</th>
                 <th>Puntos</th>
                 <th>Editar</th>
                 <th>Borrar</th>

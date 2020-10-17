@@ -26,12 +26,12 @@
 
     <h1 class="display-3">Puntos - {{$recolector->nombre}}</h1>
 
-    <table class="table table-hover" class="w-75 p-3">
+    <table class="table table-hover table-bordered w-75 text-center mx-2">
         <thead class="thead-dark">
             <tr>
-                <th>Nombre</th>
-                <th class="col-sm-3">Dias</th>
-                <th>Borrar</th>
+                <th class="w-50">Tipo</th>
+                <th class="w-30">Direccion</th>
+                <th class="w-20">Borrar</th>
             </tr>
         </thead>
         <tbody>
