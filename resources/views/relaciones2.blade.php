@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recolectores</title>
+    <title>Puntos</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -24,47 +24,46 @@
     </ul>
     </nav>
 
-    <h1 class="display-3">Recolectores</h1>
-    <form action="/registroRecolector" method="POST" class="w-75 p-3">
-        @csrf
-        <div class="row">
-            <div class="col">
-            <input type="text" class="form-control" placeholder="Nombre"  name="nombre">
-            </div>
-            <div class="col">
-            <input type="text" class="form-control" placeholder="Dias" name="dias">
-            </div>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-2">Submit</button>
-            </div>
-        </div>
-    </form>
+    <h1 class="display-3">Puntos - {{$recolector->nombre}}</h1>
 
     <table class="table table-hover" class="w-75 p-3">
         <thead class="thead-dark">
             <tr>
                 <th>Nombre</th>
                 <th class="col-sm-3">Dias</th>
-                <th>Puntos</th>
-                <th>Editar</th>
                 <th>Borrar</th>
             </tr>
         </thead>
         <tbody>
-        @if(!is_null($recolectores))
-            @foreach($recolectores as $r)
+        @if(!is_null($relaciones))
+            @foreach($relaciones as $r)
                 <tr>
-                    <td><p>{{$r->nombre}}</p></td>
-                    <td><p>{{$r->dias}}</p></td>
-                    <td><a class="btn btn-primary" href="/relacion/{{$r->id}}"><i class="fas fa-book"></i></a></td>
-                    <td><a class="btn btn-primary" href="/editarRecolector/{{$r->id}}"><i class="fas fa-edit"></i></a></td>
-                    <td><a class="btn btn-primary" href="/borrar/{{$r->id}}"><i class="fas fa-trash-alt"></i></a></td>
+                    <td><p>{{$r->tipo}}</p></td>
+                    <td><p>{{$r->direccion}}</p></td>
+                    <td><a class="btn btn-primary" href="/borrar-rel/{{$r->id}}"><i class="fas fa-trash-alt"></i></a></td>
                 </tr>
             @endforeach
         @endif
         </tbody>
     </table>
 
-
+    <form action="/nuevoPunto" method="POST" class="w-75 p-3">
+        @csrf
+        <input type="hidden" name="id" value="{{$id}}">
+        <div class="form-row align-items-center">
+            <div class="col-auto my-1">
+                <select class="custom-select mr-sm-2" name="id_punto">
+                    @if(!is_null($recolectores))
+                        @foreach($recolectores as $r)
+                            <option value="{{$r->id}}">{{$r->direccion}}</option>
+                        @endforeach
+                    @endif
+                </select>
+            </div>
+            <div class="col-auto my-1">
+                <button type="submit" class="btn btn-primary">Añadir</button>
+            </div>
+        </div>
+    </form>
 </body>
 </html>

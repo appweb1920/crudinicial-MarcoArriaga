@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Recolector;
+use App\Punto;
 use App\detalle_recolector;
 use DB;
 
@@ -12,6 +13,7 @@ class relacionController extends Controller
 {
     public function index($idP)
     {
+        $punto = Punto::find($idP);
         $recolectores = Recolector::all();
         $relaciones = DB::table('detalle_recolector')
                     ->join('recolectores', function ($join) use ($idP) {
@@ -19,7 +21,20 @@ class relacionController extends Controller
                             ->where('detalle_recolector.id_punto', '=', $idP);
                     })
                     ->get();
-        return view('relaciones')->with('recolectores', $recolectores)->with('relaciones', $relaciones)->with('id',$idP);
+        return view('relaciones')->with('recolectores', $recolectores)->with('relaciones', $relaciones)->with('id',$idP)->with('punto', $punto);
+    }
+
+    public function index2($idP)
+    {
+        $recolector = Recolector::find($idP);
+        $puntos = Punto::all();
+        $relaciones = DB::table('detalle_recolector')
+                    ->join('puntos', function ($join) use ($idP) {
+                        $join->on('puntos.id', '=', 'detalle_recolector.id_punto')
+                            ->where('detalle_recolector.id_recolector', '=', $idP);
+                    })
+                    ->get();
+        return view('relaciones2')->with('recolectores', $puntos)->with('relaciones', $relaciones)->with('id',$idP)->with('recolector', $recolector);
     }
 
     /**
@@ -48,6 +63,16 @@ class relacionController extends Controller
         return redirect()->back();
     }
 
+    public function store2(Request $request)
+    {
+        $relacion = new detalle_recolector;
+        $relacion->id_punto = $request->id_punto;
+        $relacion->id_recolector = $request->id;
+        $relacion->save();
+
+        return redirect()->back();
+    }
+
     /**
      * Display the specified resource.
      *
@@ -56,8 +81,7 @@ class relacionController extends Controller
      */
     public function show(Recolector $recolector)
     {
-        $recolectores = Recolector::find($id);
-        //$puntos = Punto::where('id')
+        //
     }
 
     /**
@@ -92,6 +116,12 @@ class relacionController extends Controller
     public function destroy($id)
     {
         DB::table('detalle_recolector')->where('id_recolector', $id)->delete();
+        return redirect()->back();
+    }
+
+    public function destroy2($id)
+    {
+        DB::table('detalle_recolector')->where('id_punto', $id)->delete();
         return redirect()->back();
     }
 }

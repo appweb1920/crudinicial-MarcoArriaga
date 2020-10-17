@@ -28,6 +28,9 @@ Route::post('/editarPunto/update', 'PuntosController@update');
 Route::get('/borrar/{id}', 'PuntosController@destroy');
 
 Route::get('/relaciones/{id}','relacionController@index');
+Route::get('/relacion/{id}','relacionController@index2');
 Route::post('/nuevoRecolector','relacionController@store');
+Route::post('/nuevoPunto','relacionController@store2');
 Route::get('/borrar-rel/{id}', 'relacionController@destroy');
+Route::get('/borrar-rel/{id}', 'relacionController@destroy2');
 
