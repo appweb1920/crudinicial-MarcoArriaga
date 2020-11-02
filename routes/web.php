@@ -34,7 +34,7 @@ Route::post('/nuevoPunto','relacionController@store2');
 Route::get('/borrar-rel/{id}', 'relacionController@destroy');
 Route::get('/borrar-rel/{id}', 'relacionController@destroy2');
 
-Route::get('/adios','RecolectorController@index');
+Route::get('/Inicio','RecolectorController@index');
 
 Auth::routes();
 
