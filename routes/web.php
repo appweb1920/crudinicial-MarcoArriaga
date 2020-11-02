@@ -34,3 +34,8 @@ Route::post('/nuevoPunto','relacionController@store2');
 Route::get('/borrar-rel/{id}', 'relacionController@destroy');
 Route::get('/borrar-rel/{id}', 'relacionController@destroy2');
 
+Route::get('/adios','RecolectorController@index');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

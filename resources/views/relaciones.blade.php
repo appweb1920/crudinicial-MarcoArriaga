@@ -26,12 +26,20 @@
 
     <h1 class="display-3">Recolectores - {{$punto->direccion}}</h1>
 
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+    @endif
+
     <table class="table table-hover table-bordered w-75 text-center mx-2">
         <thead class="thead-dark">
             <tr>
                 <th class="w-50">Nombre</th>
                 <th class="w-30">Dias</th>
-                <th class="w-20">Borrar</th>
+                @can('isAdmin')
+                    <th class="w-20">Borrar</th>
+                @endcan
             </tr>
         </thead>
         <tbody>
@@ -40,30 +48,36 @@
                 <tr>
                     <td><p>{{$r->nombre}}</p></td>
                     <td><p>{{$r->dias}}</p></td>
-                    <td><a class="btn btn-primary" href="/borrar-rel/{{$r->id}}"><i class="fas fa-trash-alt"></i></a></td>
+                    @can('isAdmin')
+                        <td><a class="btn btn-primary" href="/borrar-rel/{{$r->id}}"><i class="fas fa-trash-alt"></i></a></td>
+                    @endcan
                 </tr>
             @endforeach
         @endif
         </tbody>
     </table>
 
-    <form action="/nuevoRecolector" method="POST" class="w-75 p-3">
-        @csrf
-        <input type="hidden" name="id" value="{{$id}}">
-        <div class="form-row align-items-center">
-            <div class="col-auto my-1">
-                <select class="custom-select mr-sm-2" name="id_recolector">
-                    @if(!is_null($recolectores))
-                        @foreach($recolectores as $r)
-                            <option value="{{$r->id}}">{{$r->nombre}}</option>
-                        @endforeach
-                    @endif
-                </select>
+    @can('isAdmin')
+        <form action="/nuevoRecolector" method="POST" class="w-75 p-3">
+            @csrf
+            <input type="hidden" name="id" value="{{$id}}">
+            <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+                    <select class="custom-select mr-sm-2" name="id_recolector">
+                        @if(!is_null($recolectores))
+                            @foreach($recolectores as $r)
+                                <option value="{{$r->id}}">{{$r->nombre}}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+                <div class="col-auto my-1">
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                </div>
             </div>
-            <div class="col-auto my-1">
-                <button type="submit" class="btn btn-primary">Añadir</button>
-            </div>
-        </div>
-    </form>
+        </form>
+    @endcan
+
+    
 </body>
 </html>

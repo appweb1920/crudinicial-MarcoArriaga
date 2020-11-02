@@ -24,26 +24,34 @@
     </ul>
     </nav>
     <h1 class="display-3">Puntos</h1>
-    <form action="/registroPunto" method="POST" class="w-75 p-3">
-        @csrf
-        <div class="row">
-            <div class="col">
-            <input type="text" class="form-control" placeholder="Tipo de basura"  name="tipo">
-            </div>
-            <div class="col">
-            <input type="text" class="form-control" placeholder="Direccion" name="direccion">
-            </div>
-            <div class="col">
-            <input type="time" class="form-control" placeholder="Hora apertura"  name="horaApertura">
-            </div>
-            <div class="col">
-            <input type="time" class="form-control" placeholder="Hora Cierre" name="horaCierre">
-            </div>
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-2">Submit</button>
-            </div>
+    @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
         </div>
-    </form>
+    @endif
+
+    @can('isAdmin')
+        <form action="/registroPunto" method="POST" class="w-75 p-3">
+            @csrf
+            <div class="row">
+                <div class="col">
+                <input type="text" class="form-control" placeholder="Tipo de basura"  name="tipo">
+                </div>
+                <div class="col">
+                <input type="text" class="form-control" placeholder="Direccion" name="direccion">
+                </div>
+                <div class="col">
+                <input type="time" class="form-control" placeholder="Hora apertura"  name="horaApertura">
+                </div>
+                <div class="col">
+                <input type="time" class="form-control" placeholder="Hora Cierre" name="horaCierre">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                </div>
+            </div>
+        </form>
+    @endcan
 
     <table class="table table-hover table-bordered w-75 text-center mx-2">
         <thead class="thead-dark">
@@ -53,8 +61,10 @@
                 <th>Hora Apertura</th>
                 <th>Hora Cierre</th>
                 <th>Recolectores</th>
-                <th>Editar</th>
-                <th>Borrar</th>
+                @can('isAdmin')
+                    <th>Editar</th>
+                    <th>Borrar</th>
+                @endcan 
             </tr>
         </thead>
         <tbody>
@@ -66,8 +76,10 @@
                     <td><p>{{$p->horaApertura}}</p></td>
                     <td><p>{{$p->horaCierre}}</p></td>
                     <td><a class="btn btn-primary" href="/relaciones/{{$p->id}}"><i class="fas fa-book"></i></a></td>
-                    <td><a class="btn btn-primary" href="/editarPunto/{{$p->id}}"><i class="fas fa-edit"></i></a></td>
-                    <td><a class="btn btn-primary" href="/borrar/{{$p->id}}"><i class="fas fa-trash-alt"></i></a></td>
+                    @can('isAdmin')
+                        <td><a class="btn btn-primary" href="/editarPunto/{{$p->id}}"><i class="fas fa-edit"></i></a></td>
+                        <td><a class="btn btn-primary" href="/borrar/{{$p->id}}"><i class="fas fa-trash-alt"></i></a></td>
+                    @endcan 
                 </tr>
             @endforeach
         @endif
